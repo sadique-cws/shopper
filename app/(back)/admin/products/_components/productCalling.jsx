@@ -1,5 +1,6 @@
 "use client"
 import { Card, Typography } from "@material-tailwind/react";
+import Link from "next/link";
  
 
 
@@ -30,7 +31,7 @@ export function ProductCalling({data}) {
           </tr>
         </thead>
         <tbody>
-          {data.map(({ id, name, price, discount_price }, index) => {
+          {data.map(({ _id, name, price, discount_price }, index) => {
             const isLast = index === data.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
@@ -73,6 +74,7 @@ export function ProductCalling({data}) {
                   </Typography>
                 </td>
                 <td className={classes}>
+                  <Link href={`/admin/products/view/${_id}`}>
                   <Typography
                     as="a"
                     href="#"
@@ -82,6 +84,7 @@ export function ProductCalling({data}) {
                   >
                     Edit
                   </Typography>
+                  </Link>
                 </td>
               </tr>
             );

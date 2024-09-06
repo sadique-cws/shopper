@@ -38,7 +38,7 @@ import { useState } from "react";
             
           
           <Button className="mt-6" onClick={() => handleProductCreate(name)} fullWidth>
-            Create Poduct
+            Create Product
           </Button>
           </div>
         </div>

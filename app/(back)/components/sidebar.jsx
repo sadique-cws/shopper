@@ -24,6 +24,7 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
  
 export function Sidebar() {
   const [open, setOpen] = React.useState(0);
@@ -64,22 +65,22 @@ export function Sidebar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <a href="/admin/category/create" className="text-initial">
+              <Link href="/admin/category/create" className="text-initial">
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
                 Insert Category
               </ListItem>
-              </a>
-              <a href="/admin/category" className="text-initial">
+              </Link>
+              <Link href="/admin/category" className="text-initial">
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
                 Manage Category
               </ListItem>
-              </a>
+              </Link>
             </List>
           </AccordionBody>
         </Accordion>
@@ -104,18 +105,23 @@ export function Sidebar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Insert Product
-              </ListItem>
+              <Link href="/admin/products/create">
+                <ListItem>
+                  <ListItemPrefix>
+                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                  </ListItemPrefix>
+                  Insert Product
+                </ListItem>
+              </Link>
+              <Link href="/admin/products">
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
                 Manage Products
               </ListItem>
+              </Link>
+
             </List>
           </AccordionBody>
         </Accordion>
