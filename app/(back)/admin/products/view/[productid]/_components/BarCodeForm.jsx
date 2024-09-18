@@ -3,10 +3,10 @@ import { Button, Input, Typography } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 
-export function TitleForm ({label, field, productid}) {
+export function BarCodeForm ({label, field, productid}) {
 
     const [isEdit, setIsEdit] = useState(false);
-    const [name, setName] = useState(field);
+    const [barcode, setBarCode] = useState(field);
 
     const router = useRouter();
 
@@ -17,7 +17,7 @@ export function TitleForm ({label, field, productid}) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name}),
+            body: JSON.stringify({barcode}),
           })
         }
         catch(error){
@@ -25,7 +25,7 @@ export function TitleForm ({label, field, productid}) {
         }
 
         setIsEdit(false);
-        setName(field);
+        setBarCode(field);
         router.refresh();
   
     }
@@ -43,8 +43,8 @@ export function TitleForm ({label, field, productid}) {
         isEdit ? <div className="flex">
         <Input
           size="lg"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={barcode}
+          onChange={(e) => setBarCode(e.target.value)}
           className="rounded-none flex-1 bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
           labelProps={{
             className: "before:content-none after:content-none",

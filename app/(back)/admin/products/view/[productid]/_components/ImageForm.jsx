@@ -2,22 +2,35 @@
 import { Button, Input, Typography } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
+import {writeFile} from "fs/promises";
+import {join} from 'path';
 
-export function TitleForm ({label, field, productid}) {
+export function ImageForm ({label, field, productid}) {
 
     const [isEdit, setIsEdit] = useState(false);
-    const [name, setName] = useState(field);
+    const [photo, setImage] = useState(null);
 
     const router = useRouter();
 
     const handleUpdate = async () => {
+      
+        let formData = new FormData();
+        formData.append('image', photo);
+
+        let image = formData.get("image");
+        let bytes = await image.arrayBuffer();
+        let buffer = Buffer.from(bytes);
+        let photoPath =  join("./public", "products", image.name);
+        await writeFile(photoPath, buffer);
+        
+
         try{
           await fetch(`http://localhost:3000/api/product/${productid}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name}),
+            body: {image:image.name},
           })
         }
         catch(error){
@@ -25,7 +38,7 @@ export function TitleForm ({label, field, productid}) {
         }
 
         setIsEdit(false);
-        setName(field);
+        setImage(null);
         router.refresh();
   
     }
@@ -43,8 +56,8 @@ export function TitleForm ({label, field, productid}) {
         isEdit ? <div className="flex">
         <Input
           size="lg"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          type='file'
+          onChange={(e) => setImage(e.target.files[0])}
           className="rounded-none flex-1 bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
           labelProps={{
             className: "before:content-none after:content-none",

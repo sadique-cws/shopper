@@ -1,12 +1,12 @@
 "use client"
-import { Button, Input, Typography } from '@material-tailwind/react'
+import { Button, Input, Option, Select, Typography } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 
-export function TitleForm ({label, field, productid}) {
+export function CategoryForm ({label, field, productid, data, cat_id}) {
 
     const [isEdit, setIsEdit] = useState(false);
-    const [name, setName] = useState(field);
+    const [category, setCategory] = useState(field);
 
     const router = useRouter();
 
@@ -17,7 +17,7 @@ export function TitleForm ({label, field, productid}) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name}),
+            body: JSON.stringify({category}),
           })
         }
         catch(error){
@@ -25,7 +25,7 @@ export function TitleForm ({label, field, productid}) {
         }
 
         setIsEdit(false);
-        setName(field);
+        setCategory(field);
         router.refresh();
   
     }
@@ -41,15 +41,19 @@ export function TitleForm ({label, field, productid}) {
       </div>
      {
         isEdit ? <div className="flex">
-        <Input
-          size="lg"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+        <Select label={label} value={cat_id} onChange={(val) => setCategory(val)}
           className="rounded-none flex-1 bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
           labelProps={{
             className: "before:content-none after:content-none",
           }}
-        />
+        >
+            {
+                data.map((category, i) => (
+                    <Option value={category._id}>{category.cat_title}</Option>
+                ))
+            }
+            
+        </Select>
           <Button className="rounded-none w-auto" onClick={handleUpdate}>
             Go
           </Button>

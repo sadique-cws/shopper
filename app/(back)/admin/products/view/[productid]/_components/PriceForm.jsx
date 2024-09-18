@@ -3,10 +3,10 @@ import { Button, Input, Typography } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 
-export function TitleForm ({label, field, productid}) {
+export function PriceForm ({label, field, productid}) {
 
     const [isEdit, setIsEdit] = useState(false);
-    const [name, setName] = useState(field);
+    const [price, setPrice] = useState(field);
 
     const router = useRouter();
 
@@ -17,7 +17,7 @@ export function TitleForm ({label, field, productid}) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name}),
+            body: JSON.stringify({price}),
           })
         }
         catch(error){
@@ -25,7 +25,7 @@ export function TitleForm ({label, field, productid}) {
         }
 
         setIsEdit(false);
-        setName(field);
+        setPrice(field);
         router.refresh();
   
     }
@@ -43,8 +43,8 @@ export function TitleForm ({label, field, productid}) {
         isEdit ? <div className="flex">
         <Input
           size="lg"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           className="rounded-none flex-1 bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
           labelProps={{
             className: "before:content-none after:content-none",
@@ -53,7 +53,7 @@ export function TitleForm ({label, field, productid}) {
           <Button className="rounded-none w-auto" onClick={handleUpdate}>
             Go
           </Button>
-        </div> : ((field) ? <p className="text-xl">{field}</p> : <p className="text-xl italic">{label} in empty</p>)
+        </div> : ((field) ? <p className="text-xl">₹{field}</p> : <p className="text-xl italic">{label} in empty</p>)
      }
       </div>
       </form>

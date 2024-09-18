@@ -15,6 +15,6 @@ export async function PUT(req, {params}){
 
     const updated = await Product.findByIdAndUpdate(productid, {...fields})
 
-    return NextResponse.json({fields});
+    return NextResponse.json({"msg":"product field updated successfully"});
 }
 
