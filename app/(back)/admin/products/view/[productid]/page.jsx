@@ -9,7 +9,7 @@ import Category from '@/models/Category';
 import { StockForm } from './_components/StockForm';
 import { BarCodeForm } from './_components/BarCodeForm';
 import { BrandForm } from './_components/BrandForm';
-import { ImageForm } from './_components/ImageForm';
+import { ImageUploadForm } from './_components/ImageUploadForm';
 import PublishButton from './_components/publish-button';
 
 const page = async ({params}) => {
@@ -23,10 +23,10 @@ const page = async ({params}) => {
   const remainingFields = total_fields.filter((field) =>!product[field]);
   return (
     <div className="w-full">
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col">  
         <div className="flex flex-1 justify-between">
         <h2 className="text-xl font-semi-bold">Edit Product</h2>
-        <PublishButton className={!remainingFields ?? "cursor-not-allowed" }/>
+        <PublishButton productid={productid} className={remainingFields.length ?  "cursor-not-allowed" : "cursor-pointer"} isDisabled={remainingFields.length}/>
         </div>
        <div className="flex flex-1 gap-2">
        <p>Total fields: {total_fields.length}</p>
@@ -67,11 +67,12 @@ const page = async ({params}) => {
             field={product.brand} 
             productid={productid}/>
             
-            <ImageForm 
-            label="Product Image" 
-            field={product.image} 
-            productid={productid}/>
+           
 
+            <ImageUploadForm
+            label="Product Image" 
+            field={product.image}
+            productid={productid}/>
            
         </div>
       </div>

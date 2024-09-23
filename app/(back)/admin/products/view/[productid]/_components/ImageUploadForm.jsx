@@ -2,35 +2,34 @@
 import { Button, Input, Typography } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
-import {writeFile} from "fs/promises";
-import {join} from 'path';
 
-export function ImageForm ({label, field, productid}) {
+export function ImageUploadForm ({label, field, productid}) {
 
     const [isEdit, setIsEdit] = useState(false);
-    const [photo, setImage] = useState(null);
+    const [photo, setPhoto] = useState(field);
 
     const router = useRouter();
 
     const handleUpdate = async () => {
-      
-        let formData = new FormData();
-        formData.append('image', photo);
 
-        let image = formData.get("image");
-        let bytes = await image.arrayBuffer();
-        let buffer = Buffer.from(bytes);
-        let photoPath =  join("./public", "products", image.name);
-        await writeFile(photoPath, buffer);
-        
+        const formData = new FormData();
+        formData.append("image", photo);
+
+        let image = formData.get("image").name;
 
         try{
+        //  upload image api calling
+            await fetch(`http://localhost:3000/api/product/${productid}/upload`,{
+                method:"POST",
+                body:formData
+            })
+
           await fetch(`http://localhost:3000/api/product/${productid}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: {image:image.name},
+            body: JSON.stringify({image}),
           })
         }
         catch(error){
@@ -38,7 +37,7 @@ export function ImageForm ({label, field, productid}) {
         }
 
         setIsEdit(false);
-        setImage(null);
+        setPhoto(field);
         router.refresh();
   
     }
@@ -55,9 +54,9 @@ export function ImageForm ({label, field, productid}) {
      {
         isEdit ? <div className="flex">
         <Input
+          type="file"
           size="lg"
-          type='file'
-          onChange={(e) => setImage(e.target.files[0])}
+          onChange={(e) => setPhoto(e.target.files[0])}
           className="rounded-none flex-1 bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
           labelProps={{
             className: "before:content-none after:content-none",
@@ -66,7 +65,7 @@ export function ImageForm ({label, field, productid}) {
           <Button className="rounded-none w-auto" onClick={handleUpdate}>
             Go
           </Button>
-        </div> : ((field) ? <p className="text-xl">{field}</p> : <p className="text-xl italic">{label} in empty</p>)
+        </div> : ((field) ? <img src={`/productImages/${field}`} className='w-full'/> : <p className="text-xl italic">{label} in empty</p>)
      }
       </div>
       </form>

@@ -4,6 +4,7 @@ import { CategoriesList } from './components/categories-list'
 import { ProductSection } from './components/product-section'
 import DbConnect from '@/utils/dbConnect'
 import Category from '@/models/Category'
+import Product from '@/models/Product'
 
 const page = async () => {
   DbConnect();

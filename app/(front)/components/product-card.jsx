@@ -7,44 +7,38 @@ import {
     Typography,
     Button,
   } from "@material-tailwind/react";
+import Link from "next/link";
    
-  export function ProductCard() {
+  
+  export function ProductCard({data}) {
     return (
+      <Link href={`/${data.slug}`}>
       <Card className="flex-1 flex-col flex">
         <CardHeader shadow={false} floated={false} className="h-48">
           <img
-            src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
+            src={`/productImages/${data.image}`}
             alt="card-image"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
           />
         </CardHeader>
         <CardBody>
           <div className="mb-2 flex items-center justify-between">
             <Typography color="blue-gray" className="font-medium">
-              Apple AirPods
+              {data.name}
             </Typography>
             <Typography color="blue-gray" className="font-medium">
-              $95.00
+              {(data.discount_price) ? "₹"+data.discount_price: "₹"+data.price }
             </Typography>
           </div>
           <Typography
             variant="small"
             color="gray"
-            className="font-normal opacity-75"
+            className="font-normal opacity-75 line-clamp-1"
           >
-            With plenty of talk and listen time, voice-activated Siri access, and
-            an available wireless charging case.
+           {data.description.substr(0,100)}
           </Typography>
         </CardBody>
-        <CardFooter className="pt-0">
-          <Button
-            ripple={false}
-            fullWidth={true}
-            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-          >
-            Add to Cart
-          </Button>
-        </CardFooter>
       </Card>
+      </Link>
     );
   }
