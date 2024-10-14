@@ -3,10 +3,18 @@ import { CategoriesList } from "../../components/categories-list"
 import Heading from "../../components/heading"
 import { ProductSection } from "../../components/product-section"
 
+
+
+export const metadata = {
+  title:"filter page",
+  description: "filter page description"
+}
+
 const page = async ({params}) => {
+ 
   const {category_slug} = params;
   let CategoryDetails = await Category.findById(category_slug)
-  let categories = await Category.find({});
+  let categories = await Category.find({}); 
 
   return (
     <div>

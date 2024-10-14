@@ -8,6 +8,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { signOut } from "next-auth/react"
  
 export function AdminNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -33,6 +34,7 @@ export function AdminNavbar() {
             Shopper | Admin Panel
           </Typography>
           <Button
+           onClick={() => signOut()} 
             variant="gradient"
             size="md"
             color="red"
@@ -53,7 +55,7 @@ export function AdminNavbar() {
           </IconButton>
         </div>
         <Collapse open={openNav}>
-          <Button fullWidth variant="filled" size="sm" color="red">
+          <Button  onClick={() => signOut()}  fullWidth variant="filled" size="sm" color="red">
             <span>Logout</span>
           </Button>
         </Collapse>

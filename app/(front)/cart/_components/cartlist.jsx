@@ -38,16 +38,16 @@ const customers = [
       "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
   },
 ];
-export function CartList() {
+export function CartList({order}) {
   return (
     <Card className="w-full">
       <CardBody>
-       
+        
         <div className="divide-y divide-gray-200">
-          {customers.map(({ name, email, price, image }, index) => (
+          {customers.map(({name, image, email, price} , index) => (
             <div
               key={index}
-              className="flex items-center justify-between pb-3 pt-3 last:pb-0"
+              className="flex items-center justify-between pb-3 pt-3 last:pb-0"  
             >
               <div className="flex items-center gap-x-3">
                 <Avatar size="xxl" variant="rounded" src={image} alt={name} />

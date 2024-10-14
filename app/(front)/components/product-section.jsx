@@ -12,7 +12,7 @@ export async function ProductSection({searchTerm}){
            {(products.length > 0) ? 
            
             products.map((product, index) => (<ProductCard data={product} key={index}/>)) : 
-
+            
             <h2>No Product found </h2>
         }
         </div>

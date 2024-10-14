@@ -11,7 +11,11 @@ const page = () => {
         "use server";
         DbConnect();
 
-        let data = Product.create({name, slug: slugify(name)});
+        let data = Product.create({name, slug: slugify(name, {
+          replacement: '-',  
+          remove: /[*+~.()'"!:@]/g, 
+          lower: true,      
+        })});
 
         redirect('/admin/products');
     }

@@ -9,6 +9,7 @@ import Product from '@/models/Product'
 const page = async () => {
   DbConnect();
   let categories = await Category.find({});
+
   return (
     <div>
       <Banner/>
