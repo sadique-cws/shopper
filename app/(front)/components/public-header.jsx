@@ -11,11 +11,12 @@ import {
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { auth } from "@/auth";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
  
  function NavList() {
   const {data} = useSession();
+  const router = useRouter();
 
-  console.log(data?.user);
   return (
     <ul className="my-2  flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -88,8 +89,8 @@ import { signOut, useSession } from "next-auth/react";
   </Typography>
   </>)
 }
-      <Badge content={5}>
-          <Button className="flex items-center gap-2">
+      <Badge content={5} >
+          <Button className="flex items-center gap-2" onClick={() => router.push("/cart")}>
              <ShoppingCartIcon className="fill-white size-5"/>
              Cart
           </Button>

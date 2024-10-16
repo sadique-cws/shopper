@@ -49,7 +49,7 @@ export function CategoryForm ({label, field, productid, data, cat_id}) {
         >
             {
                 data.map((category, i) => (
-                    <Option value={category._id}>{category.cat_title}</Option>
+                    <Option key={i} value={category._id}>{category.cat_title}</Option>
                 ))
             }
             

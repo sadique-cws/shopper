@@ -6,8 +6,11 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { useRouter } from "next/navigation";
 
 export  function ProductViewTop({ data, user }) {
+
+  const router = useRouter();
 
   const handleAddToCart = async () => {
 
@@ -20,7 +23,7 @@ export  function ProductViewTop({ data, user }) {
       });
 
       console.log("success after fetch", response.message)
-  
+      router.push("/cart");
       
    
   };
